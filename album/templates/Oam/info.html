@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>在线相册信息管理</title>
+</head>
+<body>
+	<center>
+		{% include "Oam/menu.html" %}
+		<h3>操作结果</h3>
+    	{{ info }}
+    	<br>
+    	<br>
+		<a href="{% url 'check' 1 %}">浏览相册信息</a>
+	</center>
+</body>
+</html>
+
+<!--  -->

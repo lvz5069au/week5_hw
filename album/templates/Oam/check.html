@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>相册信息浏览</title>
+        <script type="text/javascript">
+            function Del(url){
+                if(confirm("删了就没救了，考虑一下？")){
+                    window.location=url
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <center>
+            {% include "Oam/menu.html" %}
+            <h3>相册信息</h3>
+            <table width="800" border="1">
+                <tr>
+                    <th>id号</th>
+                    <th>标题</th>
+                    <th>图片</th>
+                    <th>分辨率(像素)</th>
+                    <th>最后修改时间</th>
+                    <th>备注</th>
+                    <th>操作</th>
+                </tr>
+                {% for p in ulist %}
+                    <tr>
+                        <td align="middle">{{ p.id }}</td>
+                        <td align="middle">{{ p.title }}</td>
+                        <td align="middle">
+                            <div style="width:210px; height:100px;">
+                            {% load staticfiles %}
+                            <img src="{% static p.name %}" height="100%" >
+                            </div>
+                        </td>
+                        <td align="middle">{{ p.size }}</td>
+                        <td align="middle">{{ p.time|date:"Y-m-d H:i:s"}}</td>
+                        <td align="middle">{{ p.text }}</td>
+                        <td align="middle">
+                            <a href="{% url 'edit' p.id %}">编辑</a>
+                            <a href="javascript:Del('{% url 'delete' p.id %}')">删除</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <br><br>
+            {% for i in plist %}
+                {% if i == pIndex %}
+                    <b style="color:blue">{{i}}</b>
+                {% else %}
+                    <a href="{% url 'check' i %}">{{i}}</a>
+                {% endif %}
+            {% endfor %}
+        </center>
+    </body>
+</html>
+
+<!-- lk -->

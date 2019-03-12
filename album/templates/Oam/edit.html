@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  	<meta charset="UTF-8">
+  	<title>相片信息编辑</title>
+  </head>
+  <body>
+  	<center>
+  		{% include "Oam/menu.html" %}
+  		<h3>相片信息编辑</h3>
+          <form action="{% url 'update' %}" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="pid" value="{{pic.id}}"/>
+              {% csrf_token %}
+                <table width="400" border="0">
+                    <tr>
+                        <td width="35%" align="right">标题：</td>
+                        <td><input type="text" name="title" value="{{pic.title}}"/></td>
+                    </tr>
+                    <tr height="16px">
+                    </tr>
+                    <tr>
+                        <td width="35%" align="right">图片：</td>
+                        <td><input type="file" name="picture" onchange="showPreview(this)"/></td>
+                    </tr>
+                    <tr height="16px">
+                    </tr>
+                    <tr>
+                        <td width="35%" align="right">备注：</td>
+                        <td><input type="text" name="text" value="{{pic.text}}"/></td>
+                    </tr>
+                </table>
+                <br>
+                <tr>
+                   <td colspan="2" align="center">
+                      <input type="submit" value="编辑"/>
+                      <input type="reset" value="重置"/>
+                   </td>
+                </tr>
+           </form>
+          <div style="width:700px; height:350px;margin-top: 20px;">
+            <img id="portrait" src="" style="display:none;" height="100%"/>
+          </div>
+  	</center>
+  </body>
+</html>
+
+<!-- 实时显示打开的图片 -->
+<script type="text/javascript">
+    function showPreview(source) {
+      var file = source.files[0];
+      if(window.FileReader) {
+          var fr = new FileReader();
+          console.log(fr);
+          var portrait = document.getElementById('portrait');
+          fr.onloadend = function(e) {
+            portrait.src = e.target.result;
+          };
+          fr.readAsDataURL(file);
+          portrait.style.display = 'block';
+      }
+    }
+</script>
+
+ <!-- // -->
